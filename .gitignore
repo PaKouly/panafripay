@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+warehouse/
+logs/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
