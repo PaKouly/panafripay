@@ -7,3 +7,4 @@ logs/
 *.egg-info/
 .pytest_cache/
 .ipynb_checkpoints/
+data/raw/*.csv

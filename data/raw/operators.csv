@@ -1,6 +1,0 @@
-operator_code,operator_name,country_code,license_number,transaction_limit_daily,transaction_limit_monthly,service_start_date
-OM,Orange Money,SEN,BCEAO-EME-2010-014,2000000.00,10000000.00,2010-04-15
-WAVE,Wave Mobile Money,SEN,BCEAO-EME-2018-022,5000000.00,20000000.00,2018-09-01
-MTN_MOMO,MTN Mobile Money,CIV,BCEAO-EME-2009-008,2000000.00,10000000.00,2009-08-10
-FREE,Free Money,SEN,BCEAO-EME-2019-031,1500000.00,8000000.00,2019-11-20
-MOOV,Moov Money,MLI,BCEAO-EME-2012-005,1500000.00,8000000.00,2012-06-30
