@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: panafripay-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-panafripay}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-panafripay}
+      POSTGRES_DB: ${POSTGRES_DB:-panafripay}
+    ports:
+      - "5432:5432"
+    volumes:
+      - panafripay_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-panafripay}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  panafripay_pgdata:
