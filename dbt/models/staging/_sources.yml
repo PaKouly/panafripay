@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: staging
+    description: >
+      Tables de staging chargées depuis la couche silver (Parquet) par
+      scripts/run_load_to_postgres.py. Rechargées intégralement à chaque
+      exécution — ce ne sont pas des tables historisées.
+    schema: staging
+    tables:
+      - name: stg_transactions
+      - name: stg_customers
+      - name: stg_agents
+      - name: stg_operators
+      - name: stg_fx_rates

@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: Dimension client en SCD2 (historique des changements de kyc_level, customer_status, account_balance, region).
+    columns:
+      - name: customer_key
+        description: Clé de substitution (une par version historique du client).
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_agent
+    description: Dimension agent.
+    columns:
+      - name: agent_key
+        data_tests:
+          - unique
+          - not_null
+      - name: agent_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_operator
+    description: Dimension opérateur.
+    columns:
+      - name: operator_key
+        data_tests:
+          - unique
+          - not_null
+      - name: operator_code
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: Dimension date (générée, calendrier complet de la période du projet). Clé primaire naturelle (full_date), pas de clé de substitution.
+    columns:
+      - name: full_date
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fact_transaction
+    description: >
+      Table de faits, grain = une transaction. Clé primaire composite :
+      (transaction_date, customer_key, agent_key, operator_key) — voir le
+      test singulier assert_fact_transaction_composite_key_unique.sql pour
+      la vérification d'unicité de cette combinaison sur les données réelles.
+    columns:
+      - name: transaction_id
+        description: Attribut dégénéré conservé pour la traçabilité — n'est plus la clé de la table (voir clé composite ci-dessus).
+        data_tests:
+          - unique
+          - not_null
+      - name: transaction_date
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: full_date
+      - name: customer_key
+        data_tests:
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_key
+              config:
+                where: "customer_key is not null"
+      - name: agent_key
+        data_tests:
+          - relationships:
+              to: ref('dim_agent')
+              field: agent_key
+              config:
+                where: "agent_key is not null"
+      - name: operator_key
+        data_tests:
+          - relationships:
+              to: ref('dim_operator')
+              field: operator_key

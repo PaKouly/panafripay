@@ -1,0 +1,24 @@
+name: 'panafripay'
+version: '1.0.0'
+config-version: 2
+
+profile: 'panafripay'
+
+model-paths: ["models"]
+snapshot-paths: ["snapshots"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  panafripay:
+    staging:
+      +materialized: view
+      +schema: staging_dbt
+    marts:
+      +materialized: table
+      +schema: gold
